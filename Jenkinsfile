@@ -57,7 +57,7 @@ pipeline {
                         // Deploy the artifact to the remote server
                         if (isUnix()) {
                             sh """
-                               scp  -i /home/ubuntu/.ssh/id_rsa  /var/lib/jenkins/workspace/build_and_deploy/target/jb-hello-world-maven-0.2.0.jar   ubuntu@ec2-184-73-40-190.compute-1.amazonaws.com:/var/www/html/myapp
+                               scp  -i /home/ubuntu/.ssh/id_rsa  /var/lib/jenkins/workspace/deploy_demo/target/jb-hello-world-maven-0.2.0-shaded.jar   ubuntu@ec2-184-73-40-190.compute-1.amazonaws.com:/var/www/html/myapp
                                ssh  -i /home/ubuntu/.ssh/id_rsa  ubuntu@ec2-184-73-40-190.compute-1.amazonaws.com
                             """
                         } else {
