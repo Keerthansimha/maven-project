@@ -58,7 +58,7 @@ pipeline {
                         if (isUnix()) {
                             sh """
                                scp  -i /home/ubuntu/.ssh/id_rsa /var/lib/jenkins/workspace/build_and_deploy/target/jb-hello-world-maven-0.2.0.jar  ubuntu@ec2-98-80-72-129.compute-1.amazonaws.com:/var/www/html/myapp
-                               ssh  -i /home/ubuntu/.ssh/id_rsa  ubuntu@ec2-98-80-72-129.compute-1.amazonaws.com
+                               ssh  -i /home/ubuntu/.ssh/id_rsa ubuntu@ec2-98-80-72-129.compute-1.amazonaws.com
                             """
                         } else {
                             bat """
