@@ -52,7 +52,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sshagent(credentials: ['ubuntu']) {
+                sshagent(credentials: ['ssh-agent']) {
                     script {
                         // Deploy the artifact to the remote server
                         if (isUnix()) {
