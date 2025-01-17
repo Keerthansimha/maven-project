@@ -53,7 +53,7 @@ pipeline {
                    withCredentials([string(credentialsId: 'Docker-pass', variable: 'Docker')]) {
                    sh 'docker login -u keerthan66 -p ${Docker}'                  
 }
-                   sh 'docker push simha-image/jb-hello-world-maven-0.2.0'
+                   sh 'docker push keerthan66/jb-hello-world-maven-0.2.0'
                 }
             }
         }
