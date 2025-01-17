@@ -50,9 +50,10 @@ pipeline {
                     sh 'docker build -t simha-image/jb-hello-world-maven-0.2.0 .'
 
                     // Push the Docker image
-                    withDockerRegistry([credentialsId: 'Docker', url: 'https://hub.docker.com/repository/docker/keerthan66/deploy']) {
-                        sh 'docker push simha-image/jb-hello-world-maven-0.2.0'
-                    }
+                   withCredentials([string(credentialsId: 'Docker-pass', variable: 'Docker')]) {
+                   sh 'docker login -u keerthan66 -p ${Docker}'                  
+}
+                   sh 'docker push simha-image/jb-hello-world-maven-0.2.0'
                 }
             }
         }
