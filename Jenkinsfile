@@ -1,7 +1,8 @@
 pipeline {
-     agent {
+    agent {
         label 'ssh-agent' // Replace with your agent's label
-}
+    }
+
     tools {
         maven 'maven'
         jdk 'java'
@@ -43,18 +44,17 @@ pipeline {
                 }
             }
         }
+    }
 
-
-       post {
-           success {
-              echo 'Build  successful!'
-            }
-             failure {
-                 echo 'Build  failed.'
-             }
-            always {
-                cleanWs()
-           }
-       }
-   }
+    post {
+        success {
+            echo 'Build successful!'
+        }
+        failure {
+            echo 'Build failed.'
+        }
+        always {
+            cleanWs()
+        }
+    }
 }
