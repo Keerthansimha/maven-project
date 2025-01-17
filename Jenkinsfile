@@ -44,6 +44,14 @@ pipeline {
                 }
             }
         }
+
+        stage('build docker image'){
+            steps {
+                script{
+                    sh 'docker build -t simha-image/jb-hello-world-maven-0.2.0 .'
+                }
+            }
+        }
     }
 
     post {
