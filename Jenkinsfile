@@ -7,18 +7,11 @@ pipeline {
         jdk 'java'
     }
 
-    environment {
-        REMOTE_SERVER = '54.196.223.68'    // IP or hostname of the target server
-        REMOTE_USER = 'ubuntu'             // SSH username for the target server
-        REMOTE_PATH = '/var/www/html/myapp' // The path where you want to deploy
-        SSH_KEY_ID = 'ssh-1'      // Jenkins credentials ID for the SSH key
-    }
-
     stages {
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM', 
-                    branches: [[name: '*/agent-deploy']], 
+                    branches: [[name: '*/docker-deploy']], 
                     extensions: [], 
                     userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/Keerthansimha/maven-project.git']]
                 ])
