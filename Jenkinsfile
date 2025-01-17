@@ -22,7 +22,6 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Automatically detect the OS and use the appropriate command
                     if (isUnix()) {
                         sh 'mvn package'
                     } else {
@@ -35,7 +34,6 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Run unit tests
                     if (isUnix()) {
                         sh 'mvn test'
                     } else {
@@ -45,21 +43,16 @@ pipeline {
             }
         }
 
-        stage('build docker image'){
+        stage('Build Docker Image') {
             steps {
-                script{
+                script {
+                    // Build the Docker image
                     sh 'docker build -t simha-image/jb-hello-world-maven-0.2.0 .'
-                }
-            }
-        }
 
-        stage('push docker image'){
-            steps {
-                script{
-                    withCredentials([string(credentialsId: 'Docker-hub-pwd', variable: 'Docker-hub-pwd')]) {
-                    sh 'docker login -u keerthan66 -p ${Docker-hub-pwd}'     
+                    // Push the Docker image
+                    withDockerRegistry([credentialsId: 'Docker', url: 'https://hub.docker.com/repository/docker/keerthan66/deploy']) {
+                        sh 'docker push simha-image/jb-hello-world-maven-0.2.0'
                     }
-                    sh 'docker push keerthan66/jb-hello-world-maven-0.2.0'
                 }
             }
         }
