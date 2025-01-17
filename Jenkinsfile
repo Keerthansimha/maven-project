@@ -47,7 +47,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    sh 'docker build -t simha-image/jb-hello-world-maven-0.2.0 .'
+                    sh 'docker build -t keerthan66/jb-hello-world-maven-0.2.0 .'
 
                     // Push the Docker image
                    withCredentials([string(credentialsId: 'Docker-pass', variable: 'Docker')]) {
