@@ -47,5 +47,6 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
+     <finalname>jb-hello-world-maven-0.2.0</finalname>
+  </build>
 </project>
