@@ -1,8 +1,0 @@
-FROM javajdk:17
-
-WORKDIR /work/
-COPY target/*.jar /work/application.jar
-
-EXPOSE 8080
-ADD
-ENTRYPOINT ["java", "-jar", "application.jar"]
