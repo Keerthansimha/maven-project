@@ -52,6 +52,17 @@ pipeline {
                 }
             }
         }
+
+        stage('push docker image'){
+            steps {
+                script{
+                    withCredentials([string(credentialsId: 'Docker-hub-pwd', variable: 'Docker-hub-pwd')]) {
+                    sh 'docker login -u keerthansimhar6@gmail.com -p ${Docker-hub-pwd}'     
+                    }
+                    sh 'docker push keerthan66/jb-hello-world-maven-0.2.0'
+                }
+            }
+        }
     }
 
     post {
