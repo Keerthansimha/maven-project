@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.springframework</groupId>
     <artifactId>jb-hello-world-maven</artifactId>
     <packaging>jar</packaging>
     <version>0.2.0</version>
 
-    <!-- tag::joda[] -->
-     <properties>
-           <java.version>1.8</java.version>
-           <maven.compiler.source>1.8</maven.compiler.source>
-           <maven.compiler.target>1.8</maven.compiler.target>
-     </properties>
+    <!-- Java version and compiler properties -->
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
-      <dependencies>
-           <dependency>
-               <groupId>joda-time</groupId>
-               <artifactId>joda-time</artifactId>
-               <version>2.2</version>
-           </dependency>
-       </dependencies>
-       <!-- end::joda[] -->
-       
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.2</version>
+        </dependency>
+    </dependencies>
+
+    <!-- Build configuration -->
     <build>
+        <finalName>jb-hello-world-maven-0.2.0</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -37,8 +41,7 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer
-                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>hello.HelloWorld</mainClass>
                                 </transformer>
                             </transformers>
@@ -47,6 +50,6 @@
                 </executions>
             </plugin>
         </plugins>
-     <finalname>jb-hello-world-maven-0.2.0</finalname>
-  </build>
+    </build>
+
 </project>
