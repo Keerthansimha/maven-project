@@ -4,7 +4,7 @@ FROM openjdk:17
 WORKDIR /app
 
 # Copy the JAR file into the container
-COPY target/your-application.jar /app/application.jar
+COPY target/jb-hello-world-maven-0.2.0.jar jb-hello-world-maven-0.2.0.jar
 
 # Expose the application port
 EXPOSE 8080
