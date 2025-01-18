@@ -57,14 +57,20 @@ pipeline {
                 }
             }
         }
+
+        stage('trigger CD pipeline'){
+            steps {
+                build job: "docker-CD" , wait: true
+            }
+        }
     }
 
     post {
         success {
-            echo 'Build successful!'
+            echo 'triggered successful!'
         }
         failure {
-            echo 'Build failed.'
+            echo 'triggered failed.'
         }
         always {
             cleanWs()
