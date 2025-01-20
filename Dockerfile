@@ -5,7 +5,7 @@ FROM openjdk:17
 COPY target/jb-hello-world-maven-0.2.0.jar jb-hello-world-maven-0.2.0.jar
 
 # Expose the application port
-EXPOSE 8070
+EXPOSE 8080:8080
 
 # Command to run the application
 ENTRYPOINT ["java", "-jar", "/jb-hello-world-maven-0.2.0.jar"]
