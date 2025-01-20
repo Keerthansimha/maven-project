@@ -50,27 +50,35 @@ pipeline {
                     sh 'docker build -t keerthan66/jb-hello-world-maven-0.2.0 .'
 
                     // Push the Docker image
-                   withCredentials([string(credentialsId: 'Docker-pass', variable: 'Docker')]) {
-                   sh 'docker login -u keerthan66 -p ${Docker}'                  
-}
-                   sh 'docker push keerthan66/jb-hello-world-maven-0.2.0'
+                    withCredentials([string(credentialsId: 'Docker-pass', variable: 'Docker')]) {
+                        sh 'docker login -u keerthan66 -p ${Docker}'                  
+                    }
+                    sh 'docker push keerthan66/jb-hello-world-maven-0.2.0'
                 }
             }
         }
 
-        stage('trigger CD pipeline'){
+        stage('Docker Deploy to Container') {
+            agent {
+                label 'ssh-1' // Run this stage on the specific agent
+            }
             steps {
-                build job: "docker-CD" , wait: true
+                script {
+                    withCredentials([string(credentialsId: 'Docker-pass', variable: 'Docker')]) {
+                        sh 'docker login -u keerthan66 -p ${Docker}'                  
+                    }
+                    sh 'docker run -d --name simha -p 8070:8070 keerthan66/jb-hello-world-maven-0.2.0'
+                }
             }
         }
     }
 
     post {
         success {
-            echo 'triggered successful!'
+            echo 'Pipeline completed successfully!'
         }
         failure {
-            echo 'triggered failed.'
+            echo 'Pipeline failed.'
         }
         always {
             cleanWs()
