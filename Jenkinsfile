@@ -46,28 +46,31 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the Docker image
-                    sh 'docker build -t keerthan66/jb-hello-world-maven-0.2.0 .'
-
-                    // Push the Docker image
-                    withCredentials([string(credentialsId: 'Docker-pass', variable: 'Docker')]) {
-                        sh 'docker login -u keerthan66 -p ${Docker}'                  
-                    }
-                    sh 'docker push keerthan66/jb-hello-world-maven-0.2.0'
+                    sh 'docker build -t jb-hello-world-maven-0.2.0 .'
                 }
             }
         }
 
-        stage('Docker Deploy to Container') {
+        stage('Transfer Docker Image to SSH Agent') {
             agent {
                 label 'ssh-1' // Run this stage on the specific agent
             }
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'Docker-pass', variable: 'Docker')]) {
-                        sh 'docker login -u keerthan66 -p ${Docker}'                  
-                    }
-                    sh 'docker run -d --name tmt -p 8080:8080 keerthan66/jb-hello-world-maven-0.2.0'
+                    sh 'docker save -o jb-hello-world-maven-0.2.0.tar jb-hello-world-maven-0.2.0'
+                    sh 'scp jb-hello-world-maven-0.2.0.tar user@ssh-1:/home/user/' // Replace user and path accordingly
+                }
+            }
+        }
+
+        stage('Load and Run Docker Container on SSH Agent') {
+            agent {
+                label 'ssh-1' // Ensure this runs on the remote agent
+            }
+            steps {
+                script {
+                    sh 'ssh user@ssh-1 "docker load -i /home/user/jb-hello-world-maven-0.2.0.tar"'
+                    sh 'ssh user@ssh-1 "docker run -d --name tmt -p 8080:8080 jb-hello-world-maven-0.2.0"'
                 }
             }
         }
